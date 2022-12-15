@@ -5,6 +5,9 @@
         android:id="@+id/ItemHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checkable="true"
+        android:checked="true"
+        android:enabled="false"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/home" />
     <item
