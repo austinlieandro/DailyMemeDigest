@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/ItemHome"
+        android:id="@+id/ItemHomeBot"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/home" />
     <item
-        android:id="@+id/ItemMyCreation"
+        android:id="@+id/ItemMyCreationBot"
         android:icon="@drawable/ic_baseline_sentiment_very_satisfied_24"
         android:title="@string/mycreation" />
     <item
-        android:id="@+id/ItemLeaderboard"
+        android:id="@+id/ItemLeaderboardBot"
         android:checkable="false"
         android:icon="@drawable/ic_baseline_leaderboard_24"
         android:title="@string/leaderboard" />
     <item
-        android:id="@+id/ItemSettings"
+        android:id="@+id/ItemSettingsBot"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/settings" />
 </menu>
