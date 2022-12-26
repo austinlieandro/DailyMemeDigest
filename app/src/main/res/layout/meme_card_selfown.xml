@@ -87,6 +87,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtDateCreatedOwn"
                 app:srcCompat="@drawable/comment" />
 
+            <TextView
+                android:id="@+id/txtTopOwn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imgMemeOwn" />
+
+            <TextView
+                android:id="@+id/txtBottomOwn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/imgMemeOwn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
