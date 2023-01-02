@@ -1,18 +1,27 @@
 package com.austin.dailymemedigest
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_layout.*
+import kotlinx.android.synthetic.main.nav_header_main.*
+//import kotlinx.coroutines.DefaultExecutor.shared
 
 class MainActivity : AppCompatActivity() {
     val fragments:ArrayList<Fragment> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        var sharedUname = "com.austin.dailymemedigest"
+        var shared = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
+        var username =  shared.getString(LoginActivity.SHARED_USERNAME, null)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_layout)
         setSupportActionBar(toolbar)
@@ -54,5 +63,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
     }
 }
