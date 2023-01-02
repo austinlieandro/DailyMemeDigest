@@ -81,9 +81,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             q.add(stringRequest)
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
 
             btnCreateAccount.setOnClickListener {
                 val intent = Intent(this, RegisterActivity::class.java)
