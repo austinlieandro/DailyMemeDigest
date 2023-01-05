@@ -28,11 +28,11 @@ class LoginActivity : AppCompatActivity() {
         var sharedUname = packageName
         var shared = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
         var name = shared.getString(SHARED_USERNAME, null)
-        if (name != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        if (name != null) {
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
         btnSignIn.setOnClickListener {
             //volley for login
@@ -81,12 +81,14 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             q.add(stringRequest)
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//            finish()
 
-            btnCreateAccount.setOnClickListener {
-                val intent = Intent(this, RegisterActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+        }
+        btnCreateAccount.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 }
