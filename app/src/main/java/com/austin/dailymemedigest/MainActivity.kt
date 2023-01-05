@@ -5,10 +5,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -64,5 +67,9 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        val fab = findViewById<View>(R.id.fabLogOut) as? FloatingActionButton
+        fab?.setOnClickListener {
+            Toast.makeText(this, "hahahah", Toast.LENGTH_SHORT).show()
+        }
     }
 }

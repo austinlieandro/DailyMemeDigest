@@ -30,7 +30,8 @@
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescPassSignUp">
+        app:layout_constraintTop_toBottomOf="@+id/txtDescPassSignUp"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPassSignUp"

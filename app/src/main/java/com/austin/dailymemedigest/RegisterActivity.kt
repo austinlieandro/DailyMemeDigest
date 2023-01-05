@@ -18,47 +18,54 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         btnSignUp.setOnClickListener {
-            //volley for register
+            //volley for login
             val q = Volley.newRequestQueue(this)
             val url = "https://ubaya.fun/native/160420079/api/register.php"
 
             var uname = txtUnameSignUp.text.toString()
             var pass = txtPassSignUp.text.toString()
             var repass = txtRepeatPass.text.toString()
-//            Toast.makeText(this, "Halo", Toast.LENGTH_SHORT).show()
 
-                if(pass == repass){
-                        val stringRequest = object : StringRequest(
-                            Method.POST,
-                            url,
-                            Response.Listener {
-                                Log.d("apiresult", it)
-                                val obj = JSONObject(it)
-                                if (obj.getString("result") == "success") {
-                                    Log.d("Regis sukses","Sukses")
-                                    Toast.makeText(this, "Create account success", Toast.LENGTH_SHORT).show()
+            if(pass == repass){
+                val stringRequest = object : StringRequest(
+                    Method.POST,
+                    url,
+                    Response.Listener {
+                        Log.d("apiresult", it)
+                        val obj = JSONObject(it)
+                        if (obj.getString("result") == "success") {
 
-                                    //go to main activity
-                                    val intent = Intent(this, LoginActivity::class.java)
-                                    startActivity(intent)
-                                    finish()
-                                } else {
-                                    Toast.makeText(this,"Create account failed",Toast.LENGTH_SHORT).show()
-                                }
-                            },
-                            Response.ErrorListener {
-                                Log.e("apierror", it.message.toString())
-                            }) {
+//                            val data = obj.getJSONArray("data")
+//                            val objData = data.getJSONObject(0)
+//                            username = objData.getString("username")
+//
+//                            //update already username
+//                            var editor = shared.edit()
+//                            editor.putString(LoginActivity.SHARED_USERNAME,username)
+//                            editor.apply()
 
-                            override fun getParams(): MutableMap<String, String> {
-                                return hashMapOf("username" to uname.toString(), "password" to pass.toString())
-                            }
+                            Toast.makeText(this, "Create account success", Toast.LENGTH_SHORT).show()
+
+                            //go to main activity
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Create account failed",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                        q.add(stringRequest)
+                    },
+                    Response.ErrorListener {
+                        Log.e("apierror", it.message.toString())
+                    }) {
+
+                    override fun getParams(): MutableMap<String, String> {
+                        return hashMapOf("username" to uname.toString(), "password" to pass.toString())
+                    }
                 }
-                else{
-                    Toast.makeText(this, "haiya $uname $pass $repass", Toast.LENGTH_SHORT).show()
-                }
+                q.add(stringRequest)
             }
             }
     }
+}
