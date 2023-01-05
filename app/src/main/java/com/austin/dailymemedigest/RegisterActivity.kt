@@ -35,14 +35,6 @@ class RegisterActivity : AppCompatActivity() {
                         val obj = JSONObject(it)
                         if (obj.getString("result") == "success") {
 
-//                            val data = obj.getJSONArray("data")
-//                            val objData = data.getJSONObject(0)
-//                            username = objData.getString("username")
-//
-//                            //update already username
-//                            var editor = shared.edit()
-//                            editor.putString(LoginActivity.SHARED_USERNAME,username)
-//                            editor.apply()
 
                             Toast.makeText(this, "Create account success", Toast.LENGTH_SHORT).show()
 
