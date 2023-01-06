@@ -67,9 +67,17 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        val fab = findViewById<View>(R.id.fabLogOut) as? FloatingActionButton
+        val navView: NavigationView = findViewById(R.id.navView)
+        val headerView: View = navView.getHeaderView(0)
+        val fab = headerView.findViewById<View>(R.id.fabLogOut) as? FloatingActionButton
         fab?.setOnClickListener {
-            Toast.makeText(this, "hahahah", Toast.LENGTH_SHORT).show()
+            var editor = shared?.edit()
+            editor?.putString(LoginActivity.SHARED_USERNAME,null)
+            editor?.apply()
+
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
