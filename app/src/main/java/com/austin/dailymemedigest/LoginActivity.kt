@@ -16,6 +16,7 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         val SHARED_USERNAME = "SHARED_USERNAME"
+        val SHARED_ID = "SHARED_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         var username = ""
+        var id = ""
 
         //username already login
         var sharedUname = packageName
@@ -52,16 +54,19 @@ class LoginActivity : AppCompatActivity() {
                         val data = obj.getJSONArray("data")
                         val objData = data.getJSONObject(0)
                         username = objData.getString("username")
-//
+                        id = objData.getString("id")
+
                         //update already username
                         var editor = shared.edit()
                         editor.putString(SHARED_USERNAME,username)
+                        editor.putString(SHARED_ID, id)
                         editor.apply()
 
                         Toast.makeText(this, "Berhasil", Toast.LENGTH_SHORT).show()
 
                         //go to main activity
                         val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra(SHARED_ID, id)
                         startActivity(intent)
                         finish()
                     } else {

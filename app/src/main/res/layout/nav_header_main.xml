@@ -8,14 +8,14 @@
 
     <ImageView
         android:id="@+id/imgBG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="275dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        tools:srcCompat="@drawable/background" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabLogOut"
@@ -40,9 +40,10 @@
 
         <ImageView
             android:id="@+id/imgProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@drawable/palceholder" />
     </androidx.cardview.widget.CardView>
 
     <TextView

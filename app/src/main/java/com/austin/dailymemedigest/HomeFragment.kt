@@ -1,5 +1,6 @@
 package com.austin.dailymemedigest
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,8 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,7 +31,16 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
     val memes:ArrayList<Meme> = ArrayList()
+
+    fun UpdateList(){
+        val lm: LinearLayoutManager = LinearLayoutManager(activity)
+        var recyclerView = view?.findViewById<RecyclerView>(R.id.memeView)
+        recyclerView?.setHasFixedSize(true)
+        recyclerView?.layoutManager = lm
+        recyclerView?.adapter = MemeAdapter(memes)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +48,50 @@ class HomeFragment : Fragment() {
 //            param1 = it.getString(ARG_PARAM1)
 //            param2 = it.getString(ARG_PARAM2)
 //        }
+//        val queue = Volley.newRequestQueue(activity)
+//        val url = "https://ubaya.fun/native/160420079/api/get_meme.php"
+//        var stringRequest = StringRequest(
+//            Request.Method.POST,
+//            url,
+//            {
+//                Log.d("APIRESULT",it)
+//                val obj = JSONObject(it)
+//                if(obj.getString("result")=="OK"){
+//                    val data = obj.getJSONArray("data")
+//
+//                    for (i in 0 until data.length()){
+//                        val objPlay = data.getJSONObject(i)
+//                        val meme = Meme(objPlay.getInt("id")
+//                            ,objPlay.getString("url")
+//                            ,objPlay.getString("top_text")
+//                            ,objPlay.getString("bottom_text")
+//                            ,objPlay.getInt("users_id")
+//                            ,objPlay.getInt("num_like")
+//                        )
+//                        memes.add(meme)
+//                    }
+//                    UpdateList()
+//                    Log.d("cekisiarray",memes.toString())
+//                }
+//            },
+//            {
+//                Log.e("APIERROR",it.toString())
+//            }
+//        )
+//        queue.add(stringRequest)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        memes.clear()
+        memeView?.adapter?.notifyDataSetChanged()
+
         val queue = Volley.newRequestQueue(activity)
         val url = "https://ubaya.fun/native/160420079/api/get_meme.php"
         var stringRequest = StringRequest(
             Request.Method.POST,
             url,
-            Response.Listener {
+            {
                 Log.d("APIRESULT",it)
                 val obj = JSONObject(it)
                 if(obj.getString("result")=="OK"){
@@ -62,7 +112,7 @@ class HomeFragment : Fragment() {
                     Log.d("cekisiarray",memes.toString())
                 }
             },
-            Response.ErrorListener {
+            {
                 Log.e("APIERROR",it.toString())
             }
         )
@@ -74,7 +124,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        var view =  inflater.inflate(R.layout.fragment_home, container, false)
+
+        var fab : FloatingActionButton? = view?.findViewById(R.id.fabAdd)
+
+        fab?.setOnClickListener{
+            val intent = Intent(activity, AddMemeActivity::class.java)
+            activity?.startActivity(intent)
+        }
+
+        return view
     }
 
     companion object {
@@ -96,11 +155,5 @@ class HomeFragment : Fragment() {
                 }
             }
     }
-    fun UpdateList(){
-        val lm: LinearLayoutManager = LinearLayoutManager(activity)
-        var recyclerView = view?.findViewById<RecyclerView>(R.id.memeView)
-        recyclerView?.layoutManager = lm
-        recyclerView?.setHasFixedSize(true)
-        recyclerView?.adapter = MemeAdapter(memes)
-    }
+
 }

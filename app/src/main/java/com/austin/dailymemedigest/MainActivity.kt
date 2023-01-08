@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         var sharedUname = "com.austin.dailymemedigest"
         var shared = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
-        var username =  shared.getString(LoginActivity.SHARED_USERNAME, null)
+
+//        var username =  shared.getString(LoginActivity.SHARED_USERNAME, null)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_layout)

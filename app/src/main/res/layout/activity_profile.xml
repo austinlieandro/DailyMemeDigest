@@ -29,9 +29,10 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@drawable/palceholder" />
     </androidx.cardview.widget.CardView>
 
     <TextView
