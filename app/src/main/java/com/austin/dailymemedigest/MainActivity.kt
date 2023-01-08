@@ -63,7 +63,9 @@ class MainActivity : AppCompatActivity() {
             } else if (it.itemId == R.id.ItemLeaderboardBot){
                 viewPagerMain.currentItem = 2
             } else{
-                viewPagerMain.currentItem = 3
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+                viewPagerMain.currentItem = 0
             }
             true
         }

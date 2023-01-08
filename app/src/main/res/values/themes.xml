@@ -60,4 +60,7 @@
     <style name="Theme.DailyMemeDigest.AppBarOverlay"
         parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
     <style name="Theme.DailyMemeDigest.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="ToolbarColoredBackArrow">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
 </resources>

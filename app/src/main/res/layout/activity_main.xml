@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:foregroundTint="@color/white"
+            android:theme="@style/ToolbarColoredBackArrow"
             app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
