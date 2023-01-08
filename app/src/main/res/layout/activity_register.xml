@@ -26,18 +26,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Enter Password"
         app:endIconMode="password_toggle"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescPassSignUp"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@+id/txtDescPassSignUp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPassSignUp"
             style="@style/body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Enter Password" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -47,7 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Enter Username"
+        app:hintAnimationEnabled="false"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescUnameSignUp">
@@ -56,7 +57,8 @@
             android:id="@+id/txtUnameSignUp"
             style="@style/body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Enter Username" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -88,8 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Repeat Password"
         app:endIconMode="password_toggle"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescRepeatPass">
@@ -98,7 +100,8 @@
             android:id="@+id/txtRepeatPass"
             style="@style/body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Repeat Password" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
