@@ -17,6 +17,9 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         val SHARED_USERNAME = "SHARED_USERNAME"
         val SHARED_ID = "SHARED_ID"
+        val FIRST_NAME = "FIRST_NAME"
+        val LAST_NAME = "LAST_NAME"
+        val PRIVACY_SETTING = "PRIVACY_SETTING"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +28,9 @@ class LoginActivity : AppCompatActivity() {
 
         var username = ""
         var id = ""
+        var fname = ""
+        var lname = ""
+        var privacy_setting = ""
 
         //username already login
         var sharedUname = packageName
@@ -55,11 +61,17 @@ class LoginActivity : AppCompatActivity() {
                         val objData = data.getJSONObject(0)
                         username = objData.getString("username")
                         id = objData.getString("id")
+                        fname = objData.getString("fname")
+                        lname = objData.getString("lname")
+                        privacy_setting = objData.getString("privacy_setting")
 
                         //update already username
                         var editor = shared.edit()
                         editor.putString(SHARED_USERNAME,username)
                         editor.putString(SHARED_ID, id)
+                        editor.putString(FIRST_NAME, fname)
+                        editor.putString(LAST_NAME, lname)
+                        editor.putString(PRIVACY_SETTING, privacy_setting)
                         editor.apply()
 
                         Toast.makeText(this, "Berhasil", Toast.LENGTH_SHORT).show()

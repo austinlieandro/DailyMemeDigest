@@ -24,8 +24,6 @@ class MainActivity : AppCompatActivity() {
         var sharedUname = "com.austin.dailymemedigest"
         var shared = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
 
-//        var username =  shared.getString(LoginActivity.SHARED_USERNAME, null)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_layout)
         setSupportActionBar(toolbar)
@@ -40,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         fragments.add(HomeFragment())
         fragments.add(SelfCreationFragment())
         fragments.add(LeaderboardFragment())
-//        fragments.add(Settingannya kita)
 
         val adapter = MyViewPagerAdapter(this, fragments)
 
