@@ -44,6 +44,7 @@ class DetailActivity : AppCompatActivity() {
                         return map
                     }
                 }
+                Toast.makeText(this, txtAddComment.text.toString(), Toast.LENGTH_SHORT).show()
                 q.add(stringRequest)
                 txtAddComment.text?.clear()
             }
