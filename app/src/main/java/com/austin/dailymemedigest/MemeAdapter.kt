@@ -18,6 +18,10 @@ class MemeAdapter (val memes:ArrayList<Meme>) : RecyclerView.Adapter<MemeAdapter
     class MemeViewHolder(val v:View):RecyclerView.ViewHolder(v)
     companion object{
         val IDMEME = "IDMEME"
+        val TOPTEXT = "TOPTEXT"
+        val BOTTEXT = "BOTTEXT"
+        val URL = "URL"
+        val LIKE = "LIKE"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemeViewHolder {
@@ -62,6 +66,10 @@ class MemeAdapter (val memes:ArrayList<Meme>) : RecyclerView.Adapter<MemeAdapter
             val context=holder.v.context
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(IDMEME, memes[position].id.toString())
+            intent.putExtra(URL,  memes[holder.adapterPosition].url)
+            intent.putExtra(TOPTEXT,  memes[holder.adapterPosition].top_text)
+            intent.putExtra(BOTTEXT,  memes[holder.adapterPosition].bottom_text)
+            intent.putExtra(LIKE,  memes[holder.adapterPosition].numlike.toString())
             context.startActivity(intent)
         }
     }

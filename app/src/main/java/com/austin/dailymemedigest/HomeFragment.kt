@@ -87,7 +87,6 @@ class HomeFragment : Fragment() {
                 var map = HashMap<String, String>()
                 map.set("userid", userid.toString())
                 return map
-
             }
         }
         queue.add(stringRequest)

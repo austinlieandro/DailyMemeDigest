@@ -1,32 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/ItemHomeBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkable="true"
-        android:checked="true"
-        android:enabled="false"
+        android:id="@+id/ItemHomeDrawer"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/home" />
     <item
-        android:id="@+id/ItemMyCreationBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/ItemMyCreationDrawer"
         android:icon="@drawable/ic_baseline_sentiment_very_satisfied_24"
         android:title="@string/mycreation" />
     <item
-        android:id="@+id/ItemLeaderboardBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkable="false"
+        android:id="@+id/ItemLeaderboardDrawer"
         android:icon="@drawable/ic_baseline_leaderboard_24"
         android:title="@string/leaderboard" />
     <item
-        android:id="@+id/ItemSettingsBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/ItemSettingsDrawer"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/settings" />
 </menu>

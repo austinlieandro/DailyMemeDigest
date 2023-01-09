@@ -51,7 +51,6 @@ class RegisterActivity : AppCompatActivity() {
                     Response.ErrorListener {
                         Log.e("apierror", it.message.toString())
                     }) {
-
                     override fun getParams(): MutableMap<String, String> {
                         return hashMapOf("username" to uname.toString(), "password" to pass.toString())
                     }
