@@ -20,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
         val FIRST_NAME = "FIRST_NAME"
         val LAST_NAME = "LAST_NAME"
         val PRIVACY_SETTING = "PRIVACY_SETTING"
+        val REG_DATE = "REG_DATE"
+        val URL_AVATAR = "URL_AVATAR"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +33,8 @@ class LoginActivity : AppCompatActivity() {
         var fname = ""
         var lname = ""
         var privacy_setting = ""
-
+        var reg_date = ""
+        var url_avatar = ""
         //username already login
         var sharedUname = packageName
         var shared = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
@@ -64,6 +67,8 @@ class LoginActivity : AppCompatActivity() {
                         fname = objData.getString("fname")
                         lname = objData.getString("lname")
                         privacy_setting = objData.getString("privacy_setting")
+                        reg_date = objData.getString("reg_date")
+                        url_avatar = objData.getString("url_avatar")
 
                         //update already username
                         var editor = shared.edit()
@@ -72,6 +77,8 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString(FIRST_NAME, fname)
                         editor.putString(LAST_NAME, lname)
                         editor.putString(PRIVACY_SETTING, privacy_setting)
+                        editor.putString(REG_DATE, reg_date)
+                        editor.putString(URL_AVATAR, url_avatar)
                         editor.apply()
 
                         Toast.makeText(this, "Berhasil", Toast.LENGTH_SHORT).show()

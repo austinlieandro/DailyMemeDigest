@@ -24,7 +24,6 @@ class AddMemeActivity : AppCompatActivity() {
         var shared = getSharedPreferences(sharedId, Context.MODE_PRIVATE)
         var id =  shared.getString(LoginActivity.SHARED_ID, null)
 
-
         btnSubmitCreate.setOnClickListener {
             if ((txtBottomText.text.toString()!="" || txtTopText.text.toString()!="")&&txtImageURL.text.toString()!=""){
                 val q = Volley.newRequestQueue(it.context)

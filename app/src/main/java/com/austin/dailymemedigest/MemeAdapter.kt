@@ -1,5 +1,7 @@
 package com.austin.dailymemedigest
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,9 @@ import com.squareup.picasso.Picasso
 
 class MemeAdapter (val memes:ArrayList<Meme>) : RecyclerView.Adapter<MemeAdapter.MemeViewHolder>() {
     class MemeViewHolder(val v:View):RecyclerView.ViewHolder(v)
+    companion object{
+        val IDMEME = "IDMEME"
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -22,11 +27,11 @@ class MemeAdapter (val memes:ArrayList<Meme>) : RecyclerView.Adapter<MemeAdapter
     }
 
     override fun onBindViewHolder(holder: MemeViewHolder, position: Int) {
-        val url = memes[position].url
+        val urlmeme = memes[position].url
         holder.v.txtTopHome.text = memes[position].top_text
         holder.v.txtBottomHome.text = memes[position].bottom_text
         holder.v.txtLikeCountHome.text = memes[position].numlike.toString() + " Likes"
-        Picasso.get().load(url).into(holder.v.imgMemeHome)
+        Picasso.get().load(urlmeme).into(holder.v.imgMemeHome)
 
         holder.v.btnLikeHome.setOnClickListener() {
             val queue = Volley.newRequestQueue(it.context)
@@ -51,6 +56,13 @@ class MemeAdapter (val memes:ArrayList<Meme>) : RecyclerView.Adapter<MemeAdapter
                 }
             }
             queue.add(stringRequest)
+        }
+
+        holder.v.btnCommentHome.setOnClickListener {
+            val context=holder.v.context
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra(IDMEME, memes[position].id.toString())
+            context.startActivity(intent)
         }
     }
 
