@@ -21,6 +21,7 @@ class MemeOwnAdapter (val memes:ArrayList<Meme>) : RecyclerView.Adapter<MemeOwnA
         val BOTTEXT = "BOTTEXT"
         val URL = "URL"
         val LIKE = "LIKE"
+        val COMMENT = "COMMENT"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemeOwnViewHolder {
@@ -34,6 +35,7 @@ class MemeOwnAdapter (val memes:ArrayList<Meme>) : RecyclerView.Adapter<MemeOwnA
         holder.v.txtTopOwn.text = memes[position].top_text
         holder.v.txtBottomOwn.text = memes[position].bottom_text
         holder.v.txtLikeCountOwn.text = memes[position].numlike.toString() + " Likes"
+        holder.v.txtCommentCountOwn.text = memes[position].comcount.toString() + " Comments"
         val outputFormat: DateFormat = SimpleDateFormat("d MMMM y k:mm", Locale.US)
         val inputFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd k:mm", Locale.US)
 
@@ -50,6 +52,7 @@ class MemeOwnAdapter (val memes:ArrayList<Meme>) : RecyclerView.Adapter<MemeOwnA
             intent.putExtra(TOPTEXT,  memes[holder.adapterPosition].top_text)
             intent.putExtra(BOTTEXT,  memes[holder.adapterPosition].bottom_text)
             intent.putExtra(LIKE,  memes[holder.adapterPosition].numlike.toString())
+            intent.putExtra(COMMENT,  memes[holder.adapterPosition].comcount.toString())
             context.startActivity(intent)
         }
     }

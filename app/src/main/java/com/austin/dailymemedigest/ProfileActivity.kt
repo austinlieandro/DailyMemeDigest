@@ -34,21 +34,39 @@ class ProfileActivity : AppCompatActivity() {
         var sharedU = getSharedPreferences(sharedURL, Context.MODE_PRIVATE)
         var URLavatar =  sharedU.getString(LoginActivity.URL_AVATAR, null)
 
+        var sharedPrivacy = "com.austin.dailymemedigest"
+        var sharedP = getSharedPreferences(sharedPrivacy, Context.MODE_PRIVATE)
+        var privacy =  sharedP.getString(LoginActivity.PRIVACY_SETTING, null)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         setSupportActionBar(toolbarProfile)
         supportActionBar?.title="Settings"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val outputFormat: DateFormat = SimpleDateFormat("MMM yy", Locale.US)
+        val outputFormat: DateFormat = SimpleDateFormat("MMM yyyy", Locale.US)
         val inputFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
 
         val date: Date = inputFormat.parse(regDate)
         val outputText: String = outputFormat.format(date)
 //        val sdf = SimpleDateFormat("MMM yy")
 //        val pDate = sdf.format(regDate)
+        if (firstName=="null"&&lastName=="null"){
+            txtFullNameProfile.setText("User")
+        }else if(firstName!="null"&&lastName=="null"){
+            txtFullNameProfile.setText(firstName.toString())
+            txtFNameProfile.setText(firstName)
+        }else {
+            txtFullNameProfile.setText(firstName.toString() + " " + lastName.toString())
+            txtFNameProfile.setText(firstName)
+            txtLNameProfile.setText(lastName)
+        }
 
-        txtFullNameProfile.setText(firstName.toString() + " " + lastName.toString())
+        if(privacy=="1"){
+            checkBoxProfile.isChecked = true
+        }else if (privacy=="0"){
+            checkBoxProfile.isChecked = false
+        }
         txtActiveProfile.setText("Active since $outputText")
         txtUsernameProfile.setText(uname.toString())
         Picasso.get().load(URLavatar).into(imgAvatar)

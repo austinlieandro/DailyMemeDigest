@@ -108,8 +108,21 @@ class DetailActivity : AppCompatActivity() {
 
                     for(i in 0 until data.length()){
                         val comObj = data.getJSONObject(i)
+                        var fullname =""
+                        var nameakhir = ""
+                        if (comObj.getString("name")=="null"){
+                            nameakhir="User"
+                        }else{
+                            fullname=comObj.getString("name")
+                            if (comObj.getInt("privacy_setting")==1){
+                                nameakhir = censor(fullname)
+                            }else{
+                                nameakhir=fullname
+                            }
+                        }
+
                         val commentall = Comment(
-                            comObj.getString("username"),
+                            nameakhir,
                             comObj.getInt("memes_id"),
                             comObj.getString("comment"),
                             comObj.getString("date")
@@ -131,5 +144,24 @@ class DetailActivity : AppCompatActivity() {
             }
         }
         queue.add(stringRequest)
+    }
+
+    fun censor(name:String): String {
+        var count = 1
+//        var limit = name.length
+        var hasil=""
+        for (ch in name.iterator()){
+            if(count>3){
+                if(ch.equals(" ")){
+                    hasil+=" "
+                }else{
+                    hasil+="*"
+                }
+            }else{
+                hasil+=ch
+            }
+            count++
+        }
+        return hasil
     }
 }

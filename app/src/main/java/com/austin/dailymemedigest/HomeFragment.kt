@@ -28,12 +28,12 @@ class HomeFragment : Fragment() {
 
     val memes:ArrayList<Meme> = ArrayList()
 
-    fun UpdateList(){
+    fun UpdateList(userid:String){
         val lm: LinearLayoutManager = LinearLayoutManager(activity)
         var recyclerView = view?.findViewById<RecyclerView>(R.id.memeView)
         recyclerView?.setHasFixedSize(true)
         recyclerView?.layoutManager = lm
-        recyclerView?.adapter = MemeAdapter(memes)
+        recyclerView?.adapter = MemeAdapter(memes, userid)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,9 +63,19 @@ class HomeFragment : Fragment() {
                 val obj = JSONObject(it)
                 if(obj.getString("result")=="OK"){
                     val data = obj.getJSONArray("data")
-
+                    val liked = obj.getJSONArray("lk")
+                    var likec =""
                     for (i in 0 until data.length()){
                         val objPlay = data.getJSONObject(i)
+                        for (a in 0 until liked.length()){
+                            val objLike = liked.getJSONObject(a)
+                            if (objLike.getString("meme_id") == objPlay.getInt("id").toString()){
+                                likec = objLike.getString("meme_id")
+                                break
+                            }else{
+                                likec="0"
+                            }
+                        }
                         val meme = Meme(objPlay.getInt("id")
                             ,objPlay.getString("url")
                             ,objPlay.getString("top_text")
@@ -73,11 +83,14 @@ class HomeFragment : Fragment() {
                             ,objPlay.getInt("users_id")
                             ,objPlay.getInt("num_like")
                             ,objPlay.getString("date_create")
+                            ,objPlay.getInt("num_count")
+                            ,likec
                         )
                         memes.add(meme)
                     }
-                    UpdateList()
+                    UpdateList(userid.toString())
                     Log.d("cekisiarray",memes.toString())
+                    Log.d("cekisiarraylike",liked.toString())
                 }
             },
             {

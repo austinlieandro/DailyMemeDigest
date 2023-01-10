@@ -1,10 +1,21 @@
 package com.austin.dailymemedigest
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.fragment_leaderboard.*
+import kotlinx.android.synthetic.main.fragment_self_creation.*
+import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +31,15 @@ class LeaderboardFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    val leaderboards:ArrayList<Leaderboard> = ArrayList()
+
+    fun UpdateList(){
+        val lm: LinearLayoutManager = LinearLayoutManager(activity)
+        var recyclerView = view?.findViewById<RecyclerView>(R.id.leaderboardView)
+        recyclerView?.setHasFixedSize(true)
+        recyclerView?.layoutManager = lm
+        recyclerView?.adapter = LeaderboardAdapter(leaderboards)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,16 +57,86 @@ class LeaderboardFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_leaderboard, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        leaderboards.clear()
+        leaderboardView?.adapter?.notifyDataSetChanged()
+
+        var sharedId = "com.austin.dailymemedigest"
+        var shared =this.activity!!
+            .getSharedPreferences(sharedId, Context.MODE_PRIVATE)
+        var userid =  shared.getString(LoginActivity.SHARED_ID, null)
+
+        val queue = Volley.newRequestQueue(activity)
+        val url = "https://ubaya.fun/native/160420079/api/leaderboard.php"
+        var stringRequest = object : StringRequest(
+            Request.Method.POST,
+            url,
+            {
+                Log.d("APIRESULT",it)
+                Log.d("userid",userid.toString())
+                val obj = JSONObject(it)
+                if(obj.getString("result")=="OK"){
+                    val data = obj.getJSONArray("data")
+
+                    for (i in 0 until data.length()){
+                        val objPlay = data.getJSONObject(i)
+                        var fullname =""
+                        var nameakhir = ""
+                        if (objPlay.getString("name")=="null"){
+                            nameakhir="User"
+                        }else{
+                            fullname=objPlay.getString("name")
+                            if (objPlay.getInt("privacy_setting")==1){
+                                nameakhir = censor(fullname)
+                            }else{
+                                nameakhir=fullname
+                            }
+                        }
+
+                        val lead = Leaderboard(nameakhir
+                            ,objPlay.getInt("sum_like")
+                            ,objPlay.getString("url_avatar")
+                        )
+                        leaderboards.add(lead)
+                    }
+                    UpdateList()
+                    Log.d("cekisiarray",leaderboards.toString())
+                }
+            },
+            {
+                Log.e("APIERROR",it.toString())
+            }
+        ){
+            override fun getParams(): MutableMap<String, String>? {
+                var map = HashMap<String, String>()
+                map.set("userid", userid.toString())
+                return map
+            }
+        }
+        queue.add(stringRequest)
+    }
+
+    fun censor(name:String): String {
+        var count = 1
+//        var limit = name.length
+        var hasil=""
+        for (ch in name.iterator()){
+            if(count>3){
+                if(ch == ' '){
+                    hasil+=" "
+                }else{
+                    hasil+="*"
+                }
+            }else{
+                hasil+=ch
+            }
+            count++
+        }
+        return hasil
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LeaderboardFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             LeaderboardFragment().apply {
