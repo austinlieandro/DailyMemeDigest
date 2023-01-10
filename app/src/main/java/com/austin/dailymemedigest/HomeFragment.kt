@@ -72,6 +72,7 @@ class HomeFragment : Fragment() {
                             ,objPlay.getString("bottom_text")
                             ,objPlay.getInt("users_id")
                             ,objPlay.getInt("num_like")
+                            ,objPlay.getString("date_create")
                         )
                         memes.add(meme)
                     }
@@ -86,6 +87,7 @@ class HomeFragment : Fragment() {
             override fun getParams(): MutableMap<String, String>? {
                 var map = HashMap<String, String>()
                 map.set("userid", userid.toString())
+                map.set("cmd", "1")
                 return map
             }
         }
