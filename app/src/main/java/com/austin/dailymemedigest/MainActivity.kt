@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -48,9 +49,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title="Daily Meme Digest"
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        var drawerToggle =
-            ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name,
-                R.string.app_name)
+        var drawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name, R.string.app_name)
         drawerToggle.isDrawerIndicatorEnabled = true
         drawerToggle.syncState()
 
@@ -74,52 +73,35 @@ class MainActivity : AppCompatActivity() {
         )
 
         bottomNav.setOnItemSelectedListener{
-//            if(it.itemId == R.id.ItemHomeBot){
-//                viewPagerMain.currentItem = 0
-//            } else if(it.itemId == R.id.ItemMyCreationBot){
-//                viewPagerMain.currentItem = 1
-//            } else if (it.itemId == R.id.ItemLeaderboardBot){
-//                viewPagerMain.currentItem = 2
-//            } else{
-//                val intent = Intent(this, ProfileActivity::class.java)
-//                startActivity(intent)
-//                viewPagerMain.currentItem = 0
-//            }
-//            true
-            changeSelected(when(it.itemId){
-                R.id.ItemHomeBot->0
-                R.id.ItemMyCreationBot->1
-                R.id.ItemLeaderboardBot->2
-                R.id.ItemSettingsBot-> kesetting(bottomNav)
-                else -> {0}
-            },viewPagerMain, navView)
-//            drawerLayout.closeDrawer(GravityCompat.START)
+            if(it.itemId == R.id.ItemHomeBot){
+                viewPagerMain.currentItem = 0
+            } else if(it.itemId == R.id.ItemMyCreationBot){
+                viewPagerMain.currentItem = 1
+            } else if (it.itemId == R.id.ItemLeaderboardBot){
+                viewPagerMain.currentItem = 2
+            } else{
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+                viewPagerMain.currentItem = 0
+            }
             true
         }
 
         navView.setNavigationItemSelectedListener {
-            changeSelected(when(it.itemId){
-                R.id.ItemHomeBot->0
-                R.id.ItemMyCreationBot->1
-                R.id.ItemLeaderboardBot->2
-                R.id.ItemSettingsBot-> kesetting(bottomNav)
-                else -> {0}
-            },viewPagerMain, navView)
+            if(it.itemId == R.id.ItemHomeDrawer){
+                viewPagerMain.currentItem = 0
+            } else if(it.itemId == R.id.ItemMyCreationDrawer){
+                viewPagerMain.currentItem = 1
+            } else if (it.itemId == R.id.ItemLeaderboardDrawer){
+                viewPagerMain.currentItem = 2
+            } else{
+                val intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+                viewPagerMain.currentItem = 0
+            }
+
             drawerLayout.closeDrawer(GravityCompat.START)
             true
-
-//            if(it.itemId == R.id.ItemHomeBot){
-//                viewPagerMain.currentItem = 0
-//            } else if(it.itemId == R.id.ItemMyCreationBot){
-//                viewPagerMain.currentItem = 1
-//            } else if (it.itemId == R.id.ItemLeaderboardBot){
-//                viewPagerMain.currentItem = 2
-//            } else{
-//                val intent = Intent(this, ProfileActivity::class.java)
-//                startActivity(intent)
-//                viewPagerMain.currentItem = 0
-//            }
-//            true
         }
 
         val navView: NavigationView = findViewById(R.id.navView)
@@ -157,11 +139,23 @@ class MainActivity : AppCompatActivity() {
         navView.menu.getItem(id).isCheckable=true
     }
 
-    fun kesetting(bottomnav:BottomNavigationView): Int {
+    fun kesetting(bottomnav:BottomNavigationView, navView: NavigationView): Int {
+        for (i in 0 until 3){
+            navView.menu.getItem(i).isChecked = true
+            navView.menu.getItem(i).isCheckable = true
+        }
+        navView.menu.getItem(0).isChecked = true
+        navView.menu.getItem(0).isCheckable = true
         val intent = Intent(this, ProfileActivity::class.java)
         startActivity(intent)
         return 0
     }
+
+//    fun updateBotNav(id: Int, viewPager: ViewPager2, navView: NavigationView){
+//        viewPager.currentItem = id
+//        navView.menu.getItem(id).isChecked = true
+//        navView.menu.getItem(id).isCheckable = true
+//    }
 
 //    override fun onNavigationItemSelected(item: MenuItem): Boolean {
 //        drawerLayout.closeDrawer(GravityCompat.START)
