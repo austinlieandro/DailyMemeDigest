@@ -152,7 +152,7 @@ class DetailActivity : AppCompatActivity() {
         var hasil=""
         for (ch in name.iterator()){
             if(count>3){
-                if(ch.equals(" ")){
+                if(ch.equals(' ')){
                     hasil+=" "
                 }else{
                     hasil+="*"

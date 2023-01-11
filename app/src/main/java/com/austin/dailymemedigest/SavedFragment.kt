@@ -64,8 +64,8 @@ class SavedFragment : Fragment() {
                     val data = obj.getJSONArray("data")
                     val liked = obj.getJSONArray("lk")
                     val saved = obj.getJSONArray("sv")
-                    var likec =""
-                    var savec =""
+                    var likec ="0"
+                    var savec ="0"
                     for (i in 0 until data.length()){
                         val objPlay = data.getJSONObject(i)
                         for (a in 0 until liked.length()){
