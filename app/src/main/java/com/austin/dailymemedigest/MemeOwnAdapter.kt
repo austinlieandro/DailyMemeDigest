@@ -89,11 +89,9 @@ class MemeOwnAdapter (val memes:ArrayList<Meme>, val userid:String) : RecyclerVi
                     val obj = JSONObject(it)
                     if(obj.getString("msgcode")=="1"){
                         holder.v.btnSaveOwn.setImageResource(R.drawable.savefill)
-//                        memes[position].numsave++
                         memes[position].tersave= memes[position].id.toString()
                     }else if(obj.getString("msgcode")=="0"){
                         holder.v.btnSaveOwn.setImageResource(R.drawable.saveoutline)
-//                        memes[position].numsave--
                         memes[position].tersave= "0"
                     }
                 },
@@ -103,7 +101,6 @@ class MemeOwnAdapter (val memes:ArrayList<Meme>, val userid:String) : RecyclerVi
             ) {
                 override fun getParams(): MutableMap<String, String>? {
                     var params = HashMap<String, String>()
-//                    params["id"] = memes[position].id.toString()
                     params.set("userid", userid)
                     params.set("memeid", memes[holder.adapterPosition].id.toString())
                     return params

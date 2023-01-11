@@ -58,8 +58,6 @@ class SelfCreationFragment : Fragment() {
         var shared =this.activity!!
             .getSharedPreferences(sharedId, Context.MODE_PRIVATE)
         var userid =  shared.getString(LoginActivity.SHARED_ID, null)
-//        val userid = intent.getStringExtra(MemeAdapter.IDMEME)
-//        val userid = activity!!.intent.extras!!.getString(LoginActivity.SHARED_ID)
 
         val queue = Volley.newRequestQueue(activity)
         val url = "https://ubaya.fun/native/160420079/api/get_meme.php"
@@ -106,7 +104,6 @@ class SelfCreationFragment : Fragment() {
                             ,objPlay.getInt("num_count")
                             ,likec
                             ,savec
-//                            ,objPlay.getInt("num_save")
                         )
                         memes.add(meme)
                     }

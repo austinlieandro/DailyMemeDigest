@@ -19,33 +19,15 @@ import java.util.*
 class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        var sharedId = "com.austin.dailymemedigest"
-        var shared = getSharedPreferences(sharedId, Context.MODE_PRIVATE)
+        var pack = "com.austin.dailymemedigest"
+        var shared = getSharedPreferences(pack, Context.MODE_PRIVATE)
         var id =  shared.getString(LoginActivity.SHARED_ID, null)
-
-        var sharedUname = "com.austin.dailymemedigest"
-        var sharedUN = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
-        var uname = sharedUN.getString(LoginActivity.SHARED_USERNAME,null)
-
-        var sharedFirst = "com.austin.dailymemedigest"
-        var sharedF = getSharedPreferences(sharedFirst, Context.MODE_PRIVATE)
-        var firstName =  sharedF.getString(LoginActivity.FIRST_NAME, null)
-
-        var sharedLast = "com.austin.dailymemedigest"
-        var sharedL = getSharedPreferences(sharedLast, Context.MODE_PRIVATE)
-        var lastName =  sharedL.getString(LoginActivity.LAST_NAME, null)
-
-        var sharedDate = "com.austin.dailymemedigest"
-        var sharedD = getSharedPreferences(sharedDate, Context.MODE_PRIVATE)
-        var regDate =  sharedD.getString(LoginActivity.REG_DATE, null)
-
-        var sharedURL = "com.austin.dailymemedigest"
-        var sharedU = getSharedPreferences(sharedURL, Context.MODE_PRIVATE)
-        var URLavatar =  sharedU.getString(LoginActivity.URL_AVATAR, null)
-
-        var sharedPrivacy = "com.austin.dailymemedigest"
-        var sharedP = getSharedPreferences(sharedPrivacy, Context.MODE_PRIVATE)
-        var privacy =  sharedP.getString(LoginActivity.PRIVACY_SETTING, null)
+        var uname = shared.getString(LoginActivity.SHARED_USERNAME,null)
+        var firstName =  shared.getString(LoginActivity.FIRST_NAME, null)
+        var lastName =  shared.getString(LoginActivity.LAST_NAME, null)
+        var regDate =  shared.getString(LoginActivity.REG_DATE, null)
+        var URLavatar =  shared.getString(LoginActivity.URL_AVATAR, null)
+        var privacy =  shared.getString(LoginActivity.PRIVACY_SETTING, null)
 
         var privacynow = ""
 
@@ -128,6 +110,8 @@ class ProfileActivity : AppCompatActivity() {
                         if (urlAvatarUpdate!="null"){
                             Picasso.get().load(urlAvatarUpdate).into(imgAvatar)
                         }
+
+                        Toast.makeText(this, "Update profile success", Toast.LENGTH_SHORT).show()
                     },
                     {
                         Log.e("cekparams", it.message.toString())
@@ -151,7 +135,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         fabLogOutProfile.setOnClickListener {
-            var editor = sharedUN?.edit()
+            var editor = shared?.edit()
             editor?.putString(LoginActivity.SHARED_USERNAME,null)
             editor?.apply()
 

@@ -95,7 +95,6 @@ class HomeFragment : Fragment() {
                             ,objPlay.getInt("num_count")
                             ,likec
                             ,savec
-//                            ,objPlay.getInt("num_save")
                         )
                         memes.add(meme)
                     }

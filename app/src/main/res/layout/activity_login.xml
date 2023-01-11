@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                app:endIconMode="password_toggle"
+                app:passwordToggleEnabled="true"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +57,7 @@
                     style="@style/body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
                     android:hint="Enter Password" />
             </com.google.android.material.textfield.TextInputLayout>
 

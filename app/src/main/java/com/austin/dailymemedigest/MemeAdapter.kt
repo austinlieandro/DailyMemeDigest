@@ -37,11 +37,7 @@ class MemeAdapter (val memes:ArrayList<Meme>, val userid:String, val context: Co
 
     override fun onBindViewHolder(holder: MemeViewHolder, position: Int) {
 
-//        var sharedId = "com.austin.dailymemedigest"
-//        var shared = context.getSharedPreferences(sharedId, Context.MODE_PRIVATE)
-//        var userid =  shared.getString(LoginActivity.SHARED_ID, null)
         if (memes[position].user_id.toString()==userid){
-//            holder.v.btnLikeHome.isEnabled = false
             holder.v.btnLikeHome.isActivated = false;
             holder.v.btnLikeHome.setImageResource(R.drawable.greyheart)
 
@@ -77,11 +73,9 @@ class MemeAdapter (val memes:ArrayList<Meme>, val userid:String, val context: Co
                     val obj = JSONObject(it)
                     if(obj.getString("msgcode")=="1"){
                         holder.v.btnSave.setImageResource(R.drawable.savefill)
-//                        memes[position].numsave++
                         memes[position].tersave= memes[position].id.toString()
                     }else if(obj.getString("msgcode")=="0"){
                         holder.v.btnSave.setImageResource(R.drawable.saveoutline)
-//                        memes[position].numsave--
                         memes[position].tersave= "0"
                     }
                 },
@@ -91,7 +85,6 @@ class MemeAdapter (val memes:ArrayList<Meme>, val userid:String, val context: Co
             ) {
                 override fun getParams(): MutableMap<String, String>? {
                     var params = HashMap<String, String>()
-//                    params["id"] = memes[position].id.toString()
                     params.set("userid", userid)
                     params.set("memeid", memes[holder.adapterPosition].id.toString())
                     return params
@@ -102,7 +95,6 @@ class MemeAdapter (val memes:ArrayList<Meme>, val userid:String, val context: Co
 
         holder.v.btnLikeHome.setOnClickListener() {
             if (!holder.v.btnLikeHome.isActivated){
-                //Toast.makeText(context, "Tidak bisa like sendiri", Toast.LENGTH_SHORT).show()
                 val builder = AlertDialog.Builder(context)
                 builder.setMessage("You can't like your own meme!!")
                 builder.setNegativeButton("OK", null)
@@ -136,7 +128,6 @@ class MemeAdapter (val memes:ArrayList<Meme>, val userid:String, val context: Co
                 ) {
                     override fun getParams(): MutableMap<String, String>? {
                         var params = HashMap<String, String>()
-//                    params["id"] = memes[position].id.toString()
                         params.set("userid", userid)
                         params.set("memeid", memes[holder.adapterPosition].id.toString())
                         return params
@@ -157,8 +148,6 @@ class MemeAdapter (val memes:ArrayList<Meme>, val userid:String, val context: Co
             intent.putExtra(COMMENT,  memes[holder.adapterPosition].comcount.toString())
             context.startActivity(intent)
         }
-
-
 
         holder.v.btnCommentHome.setOnClickListener {
             val context=holder.v.context

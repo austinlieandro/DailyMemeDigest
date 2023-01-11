@@ -2,10 +2,11 @@ package com.austin.dailymemedigest
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View.OnFocusChangeListener
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -35,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         var privacy_setting = ""
         var reg_date = ""
         var url_avatar = ""
-        //username already login
+
         var sharedUname = packageName
         var shared = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
         var name = shared.getString(SHARED_USERNAME, null)
@@ -46,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnSignIn.setOnClickListener {
-            //volley for login
             val q = Volley.newRequestQueue(this)
             val url = "https://ubaya.fun/native/160420079/api/login.php"
 
@@ -70,7 +70,6 @@ class LoginActivity : AppCompatActivity() {
                         reg_date = objData.getString("reg_date")
                         url_avatar = objData.getString("url_avatar")
 
-                        //update already username
                         var editor = shared.edit()
                         editor.putString(SHARED_USERNAME,username)
                         editor.putString(SHARED_ID, id)
@@ -81,9 +80,6 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString(URL_AVATAR, url_avatar)
                         editor.apply()
 
-                        Toast.makeText(this, "Berhasil", Toast.LENGTH_SHORT).show()
-
-                        //go to main activity
                         val intent = Intent(this, MainActivity::class.java)
                         intent.putExtra(SHARED_ID, id)
                         startActivity(intent)
@@ -105,11 +101,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             q.add(stringRequest)
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finish()
-
         }
+
         btnCreateAccount.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)

@@ -17,18 +17,10 @@ import kotlinx.android.synthetic.main.fragment_leaderboard.*
 import kotlinx.android.synthetic.main.fragment_self_creation.*
 import org.json.JSONObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LeaderboardFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LeaderboardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     val leaderboards:ArrayList<Leaderboard> = ArrayList()
@@ -119,7 +111,6 @@ class LeaderboardFragment : Fragment() {
 
     fun censor(name:String): String {
         var count = 1
-//        var limit = name.length
         var hasil=""
         for (ch in name.iterator()){
             if(count>3){

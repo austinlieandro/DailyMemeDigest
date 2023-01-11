@@ -58,6 +58,7 @@ class DetailActivity : AppCompatActivity() {
                     com.android.volley.Request.Method.POST, "https://ubaya.fun/native/160420079/api/add_comment.php",
                     {
                         Log.d("cekparams", it)
+                        txtAddComment.setText("")
                     },
                     {
                         Log.e("cekparams", it.message.toString())
@@ -73,12 +74,10 @@ class DetailActivity : AppCompatActivity() {
                 }
                 q.add(stringRequest)
                 onResume()
-//                txtAddComment.setText("")
             }
             else{
                 Toast.makeText(this, "Please fill all input!", Toast.LENGTH_SHORT).show()
             }
-//            recyclerComment?.adapter?.notifyDataSetChanged()
         }
     }
 
@@ -91,7 +90,6 @@ class DetailActivity : AppCompatActivity() {
         super.onResume()
         recyclercoba()
         comments.clear()
-//        txtAddComment.setText("")
     }
 
     fun recyclercoba(){
@@ -148,7 +146,6 @@ class DetailActivity : AppCompatActivity() {
 
     fun censor(name:String): String {
         var count = 1
-//        var limit = name.length
         var hasil=""
         for (ch in name.iterator()){
             if(count>3){

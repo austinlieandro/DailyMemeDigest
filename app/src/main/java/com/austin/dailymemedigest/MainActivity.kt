@@ -23,36 +23,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.nav_header_main.*
-//import kotlinx.coroutines.DefaultExecutor.shared
 
 class MainActivity : AppCompatActivity() {
     val fragments:ArrayList<Fragment> = ArrayList()
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (resultCode ==Activity.RESULT_OK){
-//            if (requestCode == REQUEST_UP)
-//        }
-//    }
-//
     override fun onResume() {
         super.onResume()
-        var sharedUname = "com.austin.dailymemedigest"
-        var shared = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
+        var pack = "com.austin.dailymemedigest"
+        var shared = getSharedPreferences(pack, Context.MODE_PRIVATE)
         var uname =  shared.getString(LoginActivity.SHARED_USERNAME, null)
-
-        var sharedFirst = "com.austin.dailymemedigest"
-        var sharedF = getSharedPreferences(sharedFirst, Context.MODE_PRIVATE)
-        var firstName =  sharedF.getString(LoginActivity.FIRST_NAME, null)
-
-        var sharedLast = "com.austin.dailymemedigest"
-        var sharedL = getSharedPreferences(sharedLast, Context.MODE_PRIVATE)
-        var lastName =  sharedL.getString(LoginActivity.LAST_NAME, null)
-
-        var sharedURL = "com.austin.dailymemedigest"
-        var sharedU = getSharedPreferences(sharedURL, Context.MODE_PRIVATE)
-        var URLavatar =  sharedU.getString(LoginActivity.URL_AVATAR, null)
+        var firstName =  shared.getString(LoginActivity.FIRST_NAME, null)
+        var lastName =  shared.getString(LoginActivity.LAST_NAME, null)
+        var URLavatar =  shared.getString(LoginActivity.URL_AVATAR, null)
 
         val navView: NavigationView = findViewById(R.id.navView)
         val headerView: View = navView.getHeaderView(0)
@@ -95,21 +77,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        var sharedUname = "com.austin.dailymemedigest"
-        var shared = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
+        var pack = "com.austin.dailymemedigest"
+        var shared = getSharedPreferences(pack, Context.MODE_PRIVATE)
         var uname =  shared.getString(LoginActivity.SHARED_USERNAME, null)
-
-        var sharedFirst = "com.austin.dailymemedigest"
-        var sharedF = getSharedPreferences(sharedFirst, Context.MODE_PRIVATE)
-        var firstName =  sharedF.getString(LoginActivity.FIRST_NAME, null)
-
-        var sharedLast = "com.austin.dailymemedigest"
-        var sharedL = getSharedPreferences(sharedLast, Context.MODE_PRIVATE)
-        var lastName =  sharedL.getString(LoginActivity.LAST_NAME, null)
-
-        var sharedURL = "com.austin.dailymemedigest"
-        var sharedU = getSharedPreferences(sharedURL, Context.MODE_PRIVATE)
-        var URLavatar =  sharedU.getString(LoginActivity.URL_AVATAR, null)
+        var firstName =  shared.getString(LoginActivity.FIRST_NAME, null)
+        var lastName =  shared.getString(LoginActivity.LAST_NAME, null)
+        var URLavatar =  shared.getString(LoginActivity.URL_AVATAR, null)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_layout)
@@ -124,8 +97,6 @@ class MainActivity : AppCompatActivity() {
         fragments.add(SelfCreationFragment())
         fragments.add(LeaderboardFragment())
         fragments.add(SavedFragment())
-
-        //navView.setNavigationItemSelectedListener(this)
 
         val adapter = MyViewPagerAdapter(this, fragments)
 
@@ -217,42 +188,8 @@ class MainActivity : AppCompatActivity() {
         }
         bottomNav.menu.getItem(4).isChecked = false
         bottomNav.menu.getItem(4).isCheckable = false
-//        bottomNav.menu.getItem(0).isChecked = true
-//        bottomNav.menu.getItem(0).isCheckable = true
         val intent = Intent(this, ProfileActivity::class.java)
         startActivity(intent)
         return 0
     }
-
-//    fun updateBotNav(id: Int, viewPager: ViewPager2, navView: NavigationView){
-//        viewPager.currentItem = id
-//        navView.menu.getItem(id).isChecked = true
-//        navView.menu.getItem(id).isCheckable = true
-//    }
-
-//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//        drawerLayout.closeDrawer(GravityCompat.START)
-//        when(item.itemId){
-//            R.id.ItemHomeDrawer->{
-//                changeFragment(HomeFragment())
-//            }
-//            R.id.ItemMyCreationDrawer->{
-//                changeFragment(SelfCreationFragment())
-//            }
-//            R.id.ItemLeaderboardDrawer->{
-//                changeFragment(LeaderboardFragment())
-//            }
-//            R.id.ItemSettingsDrawer->{
-//                val intent = Intent(this, ProfileActivity::class.java)
-//                startActivity(intent)
-//                viewPagerMain.currentItem = 0
-//            }
-//        }
-//        return true
-//    }
-//
-//    fun changeFragment(frag:Fragment){
-//        val fragment=supportFragmentManager.beginTransaction()
-//        fragment.replace(R.id.viewPagerMain,frag).commit()
-//    }
 }
