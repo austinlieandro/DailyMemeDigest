@@ -34,10 +34,7 @@ class RegisterActivity : AppCompatActivity() {
                         Log.d("apiresult", it)
                         val obj = JSONObject(it)
                         if (obj.getString("result") == "success") {
-
-
                             Toast.makeText(this, "Create account success", Toast.LENGTH_SHORT).show()
-
                             //go to main activity
                             finish()
                         } else {

@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         fragments.add(HomeFragment())
         fragments.add(SelfCreationFragment())
         fragments.add(LeaderboardFragment())
+        fragments.add(SavedFragment())
 
         //navView.setNavigationItemSelectedListener(this)
 
@@ -68,38 +69,50 @@ class MainActivity : AppCompatActivity() {
                 override fun onPageSelected(position: Int) {
                     val itemId = bottomNav.menu.getItem(position).itemId
                     bottomNav.selectedItemId = itemId
+                    changeSelected(when(itemId){
+                        R.id.ItemHomeBot -> 0
+                        R.id.ItemMyCreationBot -> 1
+                        R.id.ItemLeaderboardBot -> 2
+                        R.id.ItemSavedBot -> 3
+                        R.id.ItemSettingsBot -> kesetting(bottomNav,navView)
+                        else -> 0
+                    }, viewPagerMain, navView, bottomNav)
                 }
             }
         )
 
         bottomNav.setOnItemSelectedListener{
-            if(it.itemId == R.id.ItemHomeBot){
-                viewPagerMain.currentItem = 0
-            } else if(it.itemId == R.id.ItemMyCreationBot){
-                viewPagerMain.currentItem = 1
-            } else if (it.itemId == R.id.ItemLeaderboardBot){
-                viewPagerMain.currentItem = 2
-            } else{
-                val intent = Intent(this, ProfileActivity::class.java)
-                startActivity(intent)
-                viewPagerMain.currentItem = 0
-            }
+            changeSelected(when(it.itemId){
+                R.id.ItemHomeBot -> 0
+                R.id.ItemMyCreationBot -> 1
+                R.id.ItemLeaderboardBot -> 2
+                R.id.ItemSavedBot -> 3
+                R.id.ItemSettingsBot -> kesetting(bottomNav,navView)
+                else -> 0
+            }, viewPagerMain, navView, bottomNav)
+//            if(it.itemId == R.id.ItemHomeBot){
+//                viewPagerMain.currentItem = 0
+//            } else if(it.itemId == R.id.ItemMyCreationBot){
+//                viewPagerMain.currentItem = 1
+//            } else if (it.itemId == R.id.ItemLeaderboardBot){
+//                viewPagerMain.currentItem = 2
+//            } else{
+//                val intent = Intent(this, ProfileActivity::class.java)
+//                startActivity(intent)
+//                viewPagerMain.currentItem = 0
+//            }
             true
         }
 
         navView.setNavigationItemSelectedListener {
-            if(it.itemId == R.id.ItemHomeDrawer){
-                viewPagerMain.currentItem = 0
-            } else if(it.itemId == R.id.ItemMyCreationDrawer){
-                viewPagerMain.currentItem = 1
-            } else if (it.itemId == R.id.ItemLeaderboardDrawer){
-                viewPagerMain.currentItem = 2
-            } else{
-                val intent = Intent(this, ProfileActivity::class.java)
-                startActivity(intent)
-                viewPagerMain.currentItem = 0
-            }
-
+            changeSelected(when(it.itemId){
+                R.id.ItemHomeDrawer -> 0
+                R.id.ItemMyCreationDrawer -> 1
+                R.id.ItemLeaderboardDrawer -> 2
+                R.id.ItemSavedDrawer -> 3
+                R.id.ItemSettingsDrawer -> kesetting(bottomNav, navView)
+                else -> 0
+            }, viewPagerMain, navView, bottomNav)
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
@@ -133,19 +146,23 @@ class MainActivity : AppCompatActivity() {
         Picasso.get().load(URLavatar).into(imgheader)
     }
 
-    fun changeSelected(id:Int, viewPager2: ViewPager2, navView:NavigationView){
+    fun changeSelected(id:Int, viewPager2: ViewPager2, navView:NavigationView, bottomNav: BottomNavigationView){
         viewPager2.currentItem=id
         navView.menu.getItem(id).isChecked=true
         navView.menu.getItem(id).isCheckable=true
+        bottomNav.menu.getItem(id).isChecked = true
+        bottomNav.menu.getItem(id).isCheckable = true
     }
 
-    fun kesetting(bottomnav:BottomNavigationView, navView: NavigationView): Int {
-        for (i in 0 until 3){
-            navView.menu.getItem(i).isChecked = true
-            navView.menu.getItem(i).isCheckable = true
+    fun kesetting(bottomNav: BottomNavigationView,navView: NavigationView): Int {
+        for (i in 0 until 4){
+            navView.menu.getItem(i).isChecked = false
+            navView.menu.getItem(i).isCheckable = false
         }
-        navView.menu.getItem(0).isChecked = true
-        navView.menu.getItem(0).isCheckable = true
+        bottomNav.menu.getItem(4).isChecked = false
+        bottomNav.menu.getItem(4).isCheckable = false
+//        bottomNav.menu.getItem(0).isChecked = true
+//        bottomNav.menu.getItem(0).isCheckable = true
         val intent = Intent(this, ProfileActivity::class.java)
         startActivity(intent)
         return 0

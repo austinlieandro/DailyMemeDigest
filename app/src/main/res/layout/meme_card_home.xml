@@ -25,6 +25,19 @@
             android:layout_height="match_parent">
 
             <ImageButton
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgMemeHome"
+                app:layout_constraintVertical_bias="0.437"
+                app:srcCompat="@drawable/saveoutline" />
+
+            <ImageButton
                 android:id="@+id/btnLikeHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,29 +54,36 @@
                 android:id="@+id/btnCommentHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
                 android:background="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txtLikeCountHome"
                 app:layout_constraintTop_toBottomOf="@+id/imgMemeHome"
+                app:layout_constraintVertical_bias="0.593"
                 app:srcCompat="@drawable/comment" />
 
             <TextView
                 android:id="@+id/txtCommentCountHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:text="TextView"
                 android:textColor="@color/primaryDarkColor"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnCommentHome"
-                app:layout_constraintTop_toBottomOf="@+id/imgMemeHome" />
+                app:layout_constraintStart_toEndOf="@+id/btnCommentHome"
+                app:layout_constraintTop_toBottomOf="@+id/imgMemeHome"
+                app:layout_constraintVertical_bias="0.567" />
 
             <TextView
                 android:id="@+id/txtLikeCountHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:text="TextView"
                 android:textColor="@color/primaryDarkColor"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -53,7 +53,7 @@
             android:id="@+id/imgProfileLeaderboard"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:scaleType="centerCrop"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:background="@drawable/palceholder"
+            android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

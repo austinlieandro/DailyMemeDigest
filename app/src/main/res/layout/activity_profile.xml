@@ -43,8 +43,8 @@
             android:id="@+id/imgAvatar"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:scaleType="centerCrop"
-            tools:srcCompat="@drawable/palceholder" />
+            android:background="@drawable/palceholder"
+            android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 
     <TextView

@@ -1,28 +1,25 @@
 package com.austin.dailymemedigest
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_add_meme.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_saved.*
 import org.json.JSONObject
-
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class HomeFragment : Fragment() {
+class SavedFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
@@ -30,7 +27,7 @@ class HomeFragment : Fragment() {
 
     fun UpdateList(userid:String){
         val lm: LinearLayoutManager = LinearLayoutManager(activity)
-        var recyclerView = view?.findViewById<RecyclerView>(R.id.memeView)
+        var recyclerView = view?.findViewById<RecyclerView>(R.id.savedView)
         recyclerView?.setHasFixedSize(true)
         recyclerView?.layoutManager = lm
         recyclerView?.adapter = MemeAdapter(memes, userid)
@@ -38,12 +35,16 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
     }
 
     override fun onResume() {
         super.onResume()
         memes.clear()
-        memeView?.adapter?.notifyDataSetChanged()
+        savedView?.adapter?.notifyDataSetChanged()
 
         var sharedId = "com.austin.dailymemedigest"
         var shared =this.activity!!
@@ -110,27 +111,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view =  inflater.inflate(R.layout.fragment_home, container, false)
-
-        var fab : FloatingActionButton? = view?.findViewById(R.id.fabAdd)
-
-        fab?.setOnClickListener{
-            val intent = Intent(activity, AddMemeActivity::class.java)
-            activity?.startActivity(intent)
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_saved, container, false)
     }
 
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
+            SavedFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
     }
-
 }

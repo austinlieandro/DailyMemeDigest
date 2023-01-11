@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/ItemHomeDrawer"
+        android:checkable="true"
+        android:checked="true"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/home" />
     <item
@@ -12,6 +14,10 @@
         android:id="@+id/ItemLeaderboardDrawer"
         android:icon="@drawable/ic_baseline_leaderboard_24"
         android:title="@string/leaderboard" />
+    <item
+        android:id="@+id/ItemSavedDrawer"
+        android:icon="@drawable/savefill"
+        android:title="Saved" />
     <item
         android:id="@+id/ItemSettingsDrawer"
         android:icon="@drawable/ic_baseline_settings_24"

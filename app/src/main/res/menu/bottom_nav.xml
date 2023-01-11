@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/ItemHomeBot"
+        android:checkable="true"
+        android:checked="true"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/home" />
     <item
@@ -13,6 +15,10 @@
         android:checkable="false"
         android:icon="@drawable/ic_baseline_leaderboard_24"
         android:title="@string/leaderboard" />
+    <item
+        android:id="@+id/ItemSavedBot"
+        android:icon="@drawable/savefill"
+        android:title="Saved" />
     <item
         android:id="@+id/ItemSettingsBot"
         android:icon="@drawable/ic_baseline_settings_24"

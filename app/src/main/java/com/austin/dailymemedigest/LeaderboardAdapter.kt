@@ -25,7 +25,9 @@ class LeaderboardAdapter (val leaderboards:ArrayList<Leaderboard>) : RecyclerVie
         val urlavatar = leaderboards[position].avatar
         holder.v.txtNameLeaderboard.text = leaderboards[position].username
         holder.v.txtLikeCountLeaderboard.text = leaderboards[position].numlike.toString() + " Likes"
-        Picasso.get().load(urlavatar).into(holder.v.imgProfileLeaderboard)
+        if (urlavatar!="null"){
+            Picasso.get().load(urlavatar).into(holder.v.imgProfileLeaderboard)
+        }
     }
 
     override fun getItemCount(): Int {

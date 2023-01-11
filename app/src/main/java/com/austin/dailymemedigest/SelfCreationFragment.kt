@@ -67,29 +67,6 @@ class SelfCreationFragment : Fragment() {
             Request.Method.POST,
             url,
             {
-//                Log.d("APIRESULT",it)
-//                Log.d("userid",userid.toString())
-//                val obj = JSONObject(it)
-//                if(obj.getString("result")=="OK"){
-//                    val data = obj.getJSONArray("data")
-//                    val liked = obj.getJSONArray("lk")
-//                    for (i in 0 until data.length()){
-//                        val objPlay = data.getJSONObject(i)
-//                        val objLike = liked.getJSONObject(i)
-//                        val meme = Meme(objPlay.getInt("id")
-//                            ,objPlay.getString("url")
-//                            ,objPlay.getString("top_text")
-//                            ,objPlay.getString("bottom_text")
-//                            ,objPlay.getInt("users_id")
-//                            ,objPlay.getInt("num_like")
-//                            ,objPlay.getString("date_create")
-//                            ,objPlay.getInt("num_count")
-//                            ,objLike.getString("meme_id")
-//                        )
-//                        memes.add(meme)
-//                    }
-//                    UpdateList()
-//                    Log.d("cekisiarray",memes.toString())
                 Log.d("APIRESULT",it)
                 Log.d("userid",userid.toString())
                 val obj = JSONObject(it)

@@ -69,7 +69,12 @@ class ProfileActivity : AppCompatActivity() {
         }
         txtActiveProfile.setText("Active since $outputText")
         txtUsernameProfile.setText(uname.toString())
-        Picasso.get().load(URLavatar).into(imgAvatar)
+        if (URLavatar!="null"){
+            Picasso.get().load(URLavatar).into(imgAvatar)
+        }
+//        else{
+//            Picasso.get().load(R.drawable.palceholder).into(imgAvatar)
+//        }
 
         fabLogOutProfile.setOnClickListener {
             var editor = shared?.edit()

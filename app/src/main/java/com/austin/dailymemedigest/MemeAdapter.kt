@@ -51,6 +51,18 @@ class MemeAdapter (val memes:ArrayList<Meme>, val userid:String) : RecyclerView.
         holder.v.txtCommentCountHome.text = memes[position].comcount.toString() + " Comments"
         Picasso.get().load(urlmeme).into(holder.v.imgMemeHome)
 
+        holder.v.imgMemeHome.setOnClickListener {
+            val context=holder.v.context
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra(IDMEME, memes[position].id.toString())
+            intent.putExtra(URL,  memes[holder.adapterPosition].url)
+            intent.putExtra(TOPTEXT,  memes[holder.adapterPosition].top_text)
+            intent.putExtra(BOTTEXT,  memes[holder.adapterPosition].bottom_text)
+            intent.putExtra(LIKE,  memes[holder.adapterPosition].numlike.toString())
+            intent.putExtra(COMMENT,  memes[holder.adapterPosition].comcount.toString())
+            context.startActivity(intent)
+        }
+
         holder.v.btnLikeHome.setOnClickListener() {
             val queue = Volley.newRequestQueue(it.context)
             val url = "https://ubaya.fun/native/160420079/api/set_likes.php"
