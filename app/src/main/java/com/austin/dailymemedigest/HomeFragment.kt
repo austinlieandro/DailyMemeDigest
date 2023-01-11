@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
         var recyclerView = view?.findViewById<RecyclerView>(R.id.memeView)
         recyclerView?.setHasFixedSize(true)
         recyclerView?.layoutManager = lm
-        recyclerView?.adapter = MemeAdapter(memes, userid)
+        recyclerView?.adapter = MemeAdapter(memes, userid, requireContext())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +62,9 @@ class HomeFragment : Fragment() {
                 if(obj.getString("result")=="OK"){
                     val data = obj.getJSONArray("data")
                     val liked = obj.getJSONArray("lk")
+                    val saved = obj.getJSONArray("sv")
                     var likec =""
+                    var savec =""
                     for (i in 0 until data.length()){
                         val objPlay = data.getJSONObject(i)
                         for (a in 0 until liked.length()){
@@ -74,6 +76,15 @@ class HomeFragment : Fragment() {
                                 likec="0"
                             }
                         }
+                        for (b in 0 until saved.length()){
+                            val objSave = saved.getJSONObject(b)
+                            if (objSave.getString("meme_id") == objPlay.getInt("id").toString()){
+                                savec = objSave.getString("meme_id")
+                                break
+                            }else{
+                                savec="0"
+                            }
+                        }
                         val meme = Meme(objPlay.getInt("id")
                             ,objPlay.getString("url")
                             ,objPlay.getString("top_text")
@@ -83,6 +94,8 @@ class HomeFragment : Fragment() {
                             ,objPlay.getString("date_create")
                             ,objPlay.getInt("num_count")
                             ,likec
+                            ,savec
+//                            ,objPlay.getInt("num_save")
                         )
                         memes.add(meme)
                     }

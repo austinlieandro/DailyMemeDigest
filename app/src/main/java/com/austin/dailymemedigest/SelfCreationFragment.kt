@@ -25,12 +25,12 @@ class SelfCreationFragment : Fragment() {
 
     val memes:ArrayList<Meme> = ArrayList()
 
-    fun UpdateList(){
+    fun UpdateList(userid:String){
         val lm: LinearLayoutManager = LinearLayoutManager(activity)
         var recyclerView = view?.findViewById<RecyclerView>(R.id.ownCreationView)
         recyclerView?.setHasFixedSize(true)
         recyclerView?.layoutManager = lm
-        recyclerView?.adapter = MemeOwnAdapter(memes)
+        recyclerView?.adapter = MemeOwnAdapter(memes,userid)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +73,9 @@ class SelfCreationFragment : Fragment() {
                 if(obj.getString("result")=="OK"){
                     val data = obj.getJSONArray("data")
                     val liked = obj.getJSONArray("lk")
+                    val saved = obj.getJSONArray("sv")
                     var likec =""
+                    var savec =""
                     for (i in 0 until data.length()){
                         val objPlay = data.getJSONObject(i)
                         for (a in 0 until liked.length()){
@@ -85,6 +87,15 @@ class SelfCreationFragment : Fragment() {
                                 likec="0"
                             }
                         }
+                        for (b in 0 until saved.length()){
+                            val objSave = saved.getJSONObject(b)
+                            if (objSave.getString("meme_id") == objPlay.getInt("id").toString()){
+                                savec = objSave.getString("meme_id")
+                                break
+                            }else{
+                                savec="0"
+                            }
+                        }
                         val meme = Meme(objPlay.getInt("id")
                             ,objPlay.getString("url")
                             ,objPlay.getString("top_text")
@@ -94,10 +105,12 @@ class SelfCreationFragment : Fragment() {
                             ,objPlay.getString("date_create")
                             ,objPlay.getInt("num_count")
                             ,likec
+                            ,savec
+//                            ,objPlay.getInt("num_save")
                         )
                         memes.add(meme)
                     }
-                    UpdateList()
+                    UpdateList(userid.toString())
                     Log.d("cekisiarray",memes.toString())
                     Log.d("cekisiarraylike",liked.toString())
                 }

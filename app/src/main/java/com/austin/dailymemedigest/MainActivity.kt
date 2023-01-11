@@ -1,5 +1,6 @@
 package com.austin.dailymemedigest
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,72 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity() {
     val fragments:ArrayList<Fragment> = ArrayList()
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (resultCode ==Activity.RESULT_OK){
+//            if (requestCode == REQUEST_UP)
+//        }
+//    }
+//
+    override fun onResume() {
+        super.onResume()
+        var sharedUname = "com.austin.dailymemedigest"
+        var shared = getSharedPreferences(sharedUname, Context.MODE_PRIVATE)
+        var uname =  shared.getString(LoginActivity.SHARED_USERNAME, null)
+
+        var sharedFirst = "com.austin.dailymemedigest"
+        var sharedF = getSharedPreferences(sharedFirst, Context.MODE_PRIVATE)
+        var firstName =  sharedF.getString(LoginActivity.FIRST_NAME, null)
+
+        var sharedLast = "com.austin.dailymemedigest"
+        var sharedL = getSharedPreferences(sharedLast, Context.MODE_PRIVATE)
+        var lastName =  sharedL.getString(LoginActivity.LAST_NAME, null)
+
+        var sharedURL = "com.austin.dailymemedigest"
+        var sharedU = getSharedPreferences(sharedURL, Context.MODE_PRIVATE)
+        var URLavatar =  sharedU.getString(LoginActivity.URL_AVATAR, null)
+
+        val navView: NavigationView = findViewById(R.id.navView)
+        val headerView: View = navView.getHeaderView(0)
+
+        val unameheader = headerView.findViewById<View>(R.id.txtUsernameHeader) as? TextView
+        unameheader?.setText(uname)
+
+        val fullnameheader = headerView.findViewById<View>(R.id.txtFullNameHeader) as? TextView
+        val imgheader = headerView.findViewById<View>(R.id.imgProfile) as? ImageView
+
+        if (firstName=="null"&&lastName=="null"){
+            fullnameheader?.setText("User")
+        }else if(firstName!="null"&&lastName=="null"){
+            fullnameheader?.setText(firstName.toString())
+        }else {
+            fullnameheader?.setText(firstName.toString() + " " + lastName.toString())
+        }
+        Picasso.get().load(URLavatar).into(imgheader)
+
+    val adapter = MyViewPagerAdapter(this, fragments)
+
+    viewPagerMain.adapter = adapter
+
+    viewPagerMain.registerOnPageChangeCallback(
+        object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                val itemId = bottomNav.menu.getItem(position).itemId
+                bottomNav.selectedItemId = itemId
+                changeSelected(when(itemId){
+                    R.id.ItemHomeBot -> 0
+                    R.id.ItemMyCreationBot -> 1
+                    R.id.ItemLeaderboardBot -> 2
+                    R.id.ItemSavedBot -> 3
+                    R.id.ItemSettingsBot -> kesetting(bottomNav,navView)
+                    else -> 0
+                }, viewPagerMain, navView, bottomNav)
+            }
+        }
+    )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         var sharedUname = "com.austin.dailymemedigest"
@@ -90,17 +157,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.ItemSettingsBot -> kesetting(bottomNav,navView)
                 else -> 0
             }, viewPagerMain, navView, bottomNav)
-//            if(it.itemId == R.id.ItemHomeBot){
-//                viewPagerMain.currentItem = 0
-//            } else if(it.itemId == R.id.ItemMyCreationBot){
-//                viewPagerMain.currentItem = 1
-//            } else if (it.itemId == R.id.ItemLeaderboardBot){
-//                viewPagerMain.currentItem = 2
-//            } else{
-//                val intent = Intent(this, ProfileActivity::class.java)
-//                startActivity(intent)
-//                viewPagerMain.currentItem = 0
-//            }
             true
         }
 
