@@ -1,24 +1,47 @@
 package com.austin.dailymemedigest
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
+import android.widget.Gallery
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_meme.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.meme_card_home.view.*
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.jar.Manifest
 
 class ProfileActivity : AppCompatActivity() {
+    companion object{
+        const val REQUEST_IMAGE_CAPTURE = 1
+        const val REQUEST_GALLERY_IMAGE = 2
+    }
+
+    internal lateinit var avatarImg : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        avatarImg = findViewById(R.id.imgAvatar)!!
         var pack = "com.austin.dailymemedigest"
         var shared = getSharedPreferences(pack, Context.MODE_PRIVATE)
         var id =  shared.getString(LoginActivity.SHARED_ID, null)
@@ -61,11 +84,20 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         if (URLavatar!="null"){
-            Picasso.get().load(URLavatar).into(imgAvatar)
+            Picasso.get().load(URLavatar).into(avatarImg)
         }
 
         txtActiveProfile.setText("Active since $outputText")
         txtUsernameProfile.setText(uname.toString())
+
+        avatarImg.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), REQUEST_IMAGE_CAPTURE)
+            }else{
+                openGallery()
+//                takePicture()
+            }
+        }
 
         btnSaveProfile.setOnClickListener {
             if (txtFNameProfile.text.toString()!=""){
@@ -108,7 +140,7 @@ class ProfileActivity : AppCompatActivity() {
                         }
 
                         if (urlAvatarUpdate!="null"){
-                            Picasso.get().load(urlAvatarUpdate).into(imgAvatar)
+                            Picasso.get().load(urlAvatarUpdate).into(avatarImg)
                         }
 
                         Toast.makeText(this, "Update profile success", Toast.LENGTH_SHORT).show()
@@ -142,6 +174,56 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finishAffinity()
+        }
+    }
+
+    fun openGallery(){
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_GALLERY_IMAGE)
+    }
+
+    fun takePicture(){
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when(requestCode){
+            REQUEST_IMAGE_CAPTURE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    takePicture()
+                }else{
+                    Toast.makeText(this, "You must grant permission to access the camera", Toast.LENGTH_SHORT).show()
+                }
+            }
+            REQUEST_GALLERY_IMAGE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    openGallery()
+                }
+                else{
+                    Toast.makeText(this, "You must grant permission to access the gallery", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode == Activity.RESULT_OK){
+            if (requestCode == REQUEST_IMAGE_CAPTURE){
+                val extras = data?.extras
+                avatarImg.setImageBitmap(extras?.get("data") as Bitmap)
+            }else if(resultCode == REQUEST_GALLERY_IMAGE){
+                avatarImg.setImageURI(data?.data)
+            }
         }
     }
 
